@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <div class="toc">
-	<h1><?php echo bloginfo('description'); ?></h1>
+	<h1><?php echo bloginfo('title'); ?></h1>
 
 	<?php if(have_posts()): ?>
 		<ul>
