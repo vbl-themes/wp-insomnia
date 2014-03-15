@@ -1,6 +1,8 @@
 <?php get_header(); ?>
 <?php if(have_posts()): the_post(); ?>
-	<?php the_post_thumbnail(); ?>
+	//Load thumbnail only if not accessed by Live Writer
+	<?php if(strpos($_SERVER["HTTP_USER_AGENT"],"Windows Live Writer")===false) (the_post_thumbnail()); ?>
+	
 	<div class="caption">
 	
 		<div class="sidebar">
