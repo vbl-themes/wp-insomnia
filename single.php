@@ -2,8 +2,7 @@
 <?php if(have_posts()): the_post(); ?>
 	<?php if(strpos($_SERVER["HTTP_USER_AGENT"],"Windows Live Writer")===false) (the_post_thumbnail()); ?>
 	
-	<div class="caption">
-	
+	<div class="caption alpha20">
 		<div class="sidebar">
 			<a href="<?php echo home_url(); ?>"><img src="<?php echo get_template_directory_uri(); ?>/img/up.png" /></a>
 		</div>
