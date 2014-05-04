@@ -2,9 +2,9 @@
 Theme Name: RISK Insomnia
 Theme URI: http://ranger.risk.ee
 Author URI: http://ranger.risk.ee
-Version: 0.5
+Version: 0.6
 Author: Ivari Horm
-Description: Clean two-column photography theme with caption display
+Description: Clean two-column photography theme with caption display, inspired by Spun Theme (https://wordpress.org/themes/spun).
 */
 
 /* Generic styles */
@@ -25,8 +25,8 @@ main aside h1 { cursor: pointer; }
 main aside footer { margin-top: 50px; }
 
 /* Main page styles */
-h1.main { color: #ddd; font-family: 'Playfair Display'; font-style: italic; text-align: center; }
-footer.main { font-size: 0.75em; clear: both; font-family: 'Quicksand'; text-transform: uppercase; text-align: center; }
+h1.main { color: #ddd; font-family: 'Playfair Display'; font-style: italic; text-align: center; font-size: 1.5em; margin-top: 20px; }
+footer.main { font-size: 0.6em; clear: both; font-family: 'Quicksand'; text-transform: uppercase; text-align: center; }
 nav.main { text-align: center; margin: 20px 0 20px 0; }
 
 div.meta { font-family: 'Nunito'; margin: 60px 0 40px 0; }
