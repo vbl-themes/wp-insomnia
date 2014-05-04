@@ -1,6 +1,7 @@
 
+var fsStyle = "fs";
+
 function handleLoad(screenSize) {
-	
 	//Initial load, session not found, determine viewport max size and reload
 	if(screenSize == undefined) {
 		window.location.href = "?screen=" + Math.max(window.screen.availWidth, window.screen.availHeight);
@@ -9,16 +10,17 @@ function handleLoad(screenSize) {
 	
 	console.log("Screen size: " + screenSize);
 	handleResize();
+	
+	//IE needs this
 	window.onscroll = handleScroll;
 }
 
 
 function handleResize() {
-	var b = document.body; // clientWidth
-	var i = document.getElementsByTagName('img')[0]; // width
+	var b = document.body;
+	var i = document.getElementsByTagName('img')[0];
 	var a = document.getElementsByTagName('aside')[0];
 	var c = i.naturalWidth/i.naturalHeight;	//Image ratio (4:3, 16:9)
-	var fsStyle = "fs";
 	
 	//Executed from main page, nothing to do
 	if(a == undefined) return;
@@ -49,7 +51,7 @@ function handleScroll() {
 	var i = document.getElementsByTagName('img')[0];
 	
 	//Not in full screen mode, no handling needed
-	if(i.className.indexOf("fs") == -1) return;
+	if(i.className.indexOf(fsStyle) == -1) return;
 	
 	var imgOffset = (i.height - window.innerHeight)/(getMaxScrollY());
 	i.style.top = -getScrollTop() * imgOffset + "px";
@@ -61,7 +63,10 @@ function handleRoll(isFull) {
 	var a = document.getElementsByTagName('aside')[0];
 	var step = 10;
 	
-	//Is this initial launch?
+	//Not in full screen mode, no handling needed
+	if(a.className.indexOf(fsStyle) == -1) return;
+	
+	//Is this initial launch? Determine direction
 	if(isFull == undefined) isFull = (getScrollHeight() - a.offsetHeight - 2*step) <= getScrollTop() || getScrollTop() >= getMaxScrollY();
 	
 	window.scrollBy(0, isFull?-step:step);
