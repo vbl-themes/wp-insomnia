@@ -7,7 +7,7 @@
 
 	<aside>
 		<article>
-			<h1><?php the_title(); ?></h1>
+			<h1 onclick="handleRoll()"><?php the_title(); ?></h1>
 			<?php the_content(); ?>
 		</article>
 	

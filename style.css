@@ -21,6 +21,7 @@ main figure { margin: 0; }
 main figure img { height: auto; width: auto; max-height: 100vh; max-width: 100vw; }
 
 main aside { margin: 20px; }
+main aside h1 { cursor: pointer; }
 main aside footer { margin-top: 50px; }
 
 /* Main page styles */

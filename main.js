@@ -1,11 +1,13 @@
+
 function handleLoad(screenSize) {
+	
+	//Initial load, session not found, determine viewport max size and reload
 	if(screenSize == undefined) {
 		window.location.href = "?screen=" + Math.max(window.screen.availWidth, window.screen.availHeight);
 		return;
 	}
 	
-	console.log("SCREEN SIZE: " + screenSize);
-	
+	console.log("Screen size: " + screenSize);
 	handleResize();
 	window.onscroll = handleScroll;
 }
@@ -18,6 +20,7 @@ function handleResize() {
 	var c = i.naturalWidth/i.naturalHeight;	//Image ratio (4:3, 16:9)
 	var fsStyle = "fs";
 	
+	//Executed from main page, nothing to do
 	if(a == undefined) return;
 	
 	//Resizing via classlist not supported
@@ -44,26 +47,46 @@ function handleResize() {
 
 function handleScroll() {
 	var i = document.getElementsByTagName('img')[0];
+	
+	//Not in full screen mode, no handling needed
 	if(i.className.indexOf("fs") == -1) return;
 	
-	
-	var imgOffset = (i.height - getClientHeight())/(getScrollHeight() - getClientHeight());
+	var imgOffset = (i.height - window.innerHeight)/(getMaxScrollY());
 	i.style.top = -getScrollTop() * imgOffset + "px";
 	
-	console.log("SCROLL: Image (H=" + i.height + "), Window (H=" + getClientHeight() + "), Scroll (H=" + getScrollHeight() + ")");
+	//console.log("SCROLL: Image (H=" + i.height + "), Window (H=" + getClientHeight() + "), Scroll (H=" + getScrollHeight() + ")");
+}
+
+function handleRoll(isFull) {
+	var a = document.getElementsByTagName('aside')[0];
+	var step = 10;
+	
+	//Is this initial launch?
+	if(isFull == undefined) isFull = (getScrollHeight() - a.offsetHeight - 2*step) <= getScrollTop() || getScrollTop() >= getMaxScrollY();
+	
+	window.scrollBy(0, isFull?-step:step);
+	//console.log("ROLLING: " + isFull + "; " + getClientHeight() + "; " + getScrollHeight() + "; " + getScrollTop());
+	
+	if(isFull == false && (getScrollHeight() - a.offsetHeight - 2*step) > getScrollTop() && getScrollTop() < getMaxScrollY()) {
+		setTimeout(function(){ handleRoll(isFull); }, 10);
+		return;
+	}
+	
+	if(isFull == true && getScrollTop() > 0) {
+		setTimeout(function(){ handleRoll(isFull); }, 10);
+		return;
+	}
 }
 
 function getScrollHeight() {
-	if(document.documentElement.scrollHeight > 0) return document.documentElement.scrollHeight;
-	if(document.body.scrollHeight > 0) return document.body.scrollHeight;
+	return Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
 }
 
 function getScrollTop() {
-	if(document.documentElement.scrollTop > 0) return document.documentElement.scrollTop;
-	if(document.body.scrollTop > 0) return document.body.scrollTop;
+	return Math.max(document.documentElement.scrollTop, document.body.scrollTop);
 }
 
-function getClientHeight() {
-	return window.innerHeight;
+function getMaxScrollY() {
+	return getScrollHeight() - window.innerHeight;
 }
 
