@@ -2,7 +2,12 @@
 <?php if(have_posts()): the_post(); ?>
 <main>
 	<?php if(strpos($_SERVER["HTTP_USER_AGENT"],"Windows Live Writer")===false): ?>
-		<figure><?php the_post_thumbnail(array($_SESSION["screen"], $_SESSION["screen"])); ?></figure>
+		<figure><?php
+			if(isset($_COOKIE["screen"]))
+				the_post_thumbnail(array($_COOKIE["screen"], $_COOKIE["screen"]));
+			else 
+				the_post_thumbnail();
+		?></figure>
 	<?php endif ?>
 
 	<aside>

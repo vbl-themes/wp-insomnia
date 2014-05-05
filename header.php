@@ -18,15 +18,4 @@
 	<?php wp_head(); ?>
 </head>
 
-<?php
-	session_start();
-	
-	if(is_numeric($_GET["screen"])) {
-		$_SESSION["screen"] = $_GET["screen"];
-	}
-	elseif(!is_numeric($_SESSION["screen"])) {
-		session_destroy();
-	}
-?>
-
-<body onload="handleLoad(<?php echo $_SESSION["screen"]; ?>)" onresize="handleResize()" onscroll="handleScroll()">
+<body onload="handleLoad(<?php echo isset($_COOKIE["screen"])?$_COOKIE["screen"]:""; ?>)" onresize="handleResize()" onscroll="handleScroll()">

@@ -4,6 +4,7 @@ var fsStyle = "fs";
 function handleLoad(screenSize) {
 	//Initial load, session not found, determine viewport max size and reload
 	if(screenSize == undefined) {
+		console.log("Detecting screen size, reloading...");
 		window.location.href = "?screen=" + Math.max(window.screen.availWidth, window.screen.availHeight);
 		return;
 	}
